@@ -27,7 +27,7 @@ export class BookService{
     async updateBook(id:number, data:Book): Promise<Book>{
         return this.prisma.book.update({
             where: {id:Number(id)},
-            data: { title: data.title, description: data.description}
+            data: { title: data.title, description: data.description, author: data.author, qtd: data.qtd}
         })
     }
 

@@ -6,4 +6,6 @@ export class Book implements Prisma.BookCreateInput{
     id: number;
     title: string;
     description: string;
+    author: string;
+    qtd: number;
 }
