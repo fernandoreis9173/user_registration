@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Curriculos" ALTER COLUMN "rg" SET DATA TYPE TEXT;

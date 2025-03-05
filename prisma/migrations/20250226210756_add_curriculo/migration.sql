@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Curriculos" ALTER COLUMN "idade" SET DATA TYPE VARCHAR(100);

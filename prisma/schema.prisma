@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,22 +7,164 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model UsersNest{
-  id Int @id @default(autoincrement())
-  name String @db.VarChar(100)
-  password String @db.VarChar(100)
-  username String @unique @db.VarChar(45)
-  email String @unique @db.VarChar(45)
+model UsersNest {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(100)
+  password  String   @db.VarChar(100)
+  username  String   @unique @db.VarChar(45)
+  email     String   @unique @db.VarChar(45)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model Book{
-  id Int @id @default(autoincrement())
-  title String @db.VarChar(100)
-  description String @db.VarChar(100)
-  author String @db.VarChar(100)
-  qtd Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Book {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(100)
+  description String   @db.VarChar(100)
+  author      String   @db.VarChar(100)
+  qtd         Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Curriculos {
+  id                         Int              @id @default(autoincrement())
+  nome                       String           @db.VarChar(100)
+  idade                      String           @db.VarChar(100)
+  endereco                   String           @db.VarChar(100)
+  bairro                     String           @db.VarChar(100)
+  cidade                     String           @db.VarChar(100)
+  proximo                    String           @db.VarChar(100)
+  estado                     String           @db.VarChar(100)
+  tempoMoradia               String           @db.VarChar(100)
+  tempocidade                String           @db.VarChar(100)
+  moradiaAntes               String           @db.VarChar(100)
+  telefone                   String           @db.VarChar(50)
+  celular                    String           @db.VarChar(50)
+  foneRecador                String           @db.VarChar(50)
+  localNascimento            String           @db.VarChar(100)
+  dataNascimento             String           @db.VarChar(100)
+  orgaoEmissor               String           @db.VarChar(100)
+  dataEmissao                String           @db.VarChar(100)
+  tituloEleitor              String           @db.VarChar(100)
+  zonaEleitoral              String           @db.VarChar(100)
+  secaoEleitoral             String           @db.VarChar(100)
+  serieCarteiraProfissional  String           @db.VarChar(100)
+  ufCarteiraProfissional     String           @db.VarChar(100)
+  categoria                  String           @db.VarChar(100)
+  nomePais                   String           @db.VarChar(100)
+  nomeMae                    String           @db.VarChar(100)
+  filhos                     String           @db.VarChar(100)
+  idadeFilhos                String           @db.VarChar(100)
+  createdAt                  DateTime         @default(now())
+  updatedAt                  DateTime         @updatedAt
+  rg                         String           @unique
+  cpf                        String           @db.VarChar(100)
+  numeroCarteiraProfissional String           @db.VarChar(100)
+  numeroCarteiraMotorista    String           @db.VarChar(100)
+  pis                        String           @db.VarChar(100)
+  casaPropria                String           @db.VarChar(100)
+  valorAluguel               String           @db.VarChar(100)
+  rgestado                   String           @db.VarChar(100)
+  escolaridades              Escolaridade[]
+  InfoImportante             InfoImportante[]
+  LastJob                    LastJob[]
+}
+
+model Escolaridade {
+  id               Int        @id @default(autoincrement())
+  fundamCompleto   Boolean
+  serieFundamental String
+  medioCompleto    Boolean
+  serieMedio       String
+  superior         Boolean
+  cursoSuperior    String
+  pretendeCursar   String
+  horario          String
+  local            String
+  curriculoId      Int
+  curriculo        Curriculos @relation(fields: [curriculoId], references: [id])
+}
+
+model LastJob {
+  id              Int        @id @default(autoincrement())
+  ultimoEmprego   String     @db.VarChar(100)
+  endereco        String     @db.VarChar(100)
+  cidade          String     @db.VarChar(100)
+  telefone        String     @db.VarChar(50)
+  celular         String     @db.VarChar(50)
+  funcao          String     @db.VarChar(100)
+  tempoDeTrabalho String     @db.VarChar(100)
+  assinouCarteira String     @db.VarChar(100)
+  dataEntrada     String     @db.VarChar(100)
+  dataSaida       String     @db.VarChar(100)
+  motivoSaida     String     @db.VarChar(100)
+  curriculoId     Int
+  curriculo       Curriculos @relation(fields: [curriculoId], references: [id])
+}
+
+model InfoImportante {
+  id                   Int        @id @default(autoincrement())
+  pqJobAgencia         String     @db.VarChar(100)
+  pqIndicar            String     @db.VarChar(100)
+  oqFazMelhor          String     @db.VarChar(100)
+  gostaLavarRoupa      String     @db.VarChar(100)
+  sabePassarRoupa      String     @db.VarChar(100)
+  gostaLimpeza         String     @db.VarChar(100)
+  comoLimpa            String     @db.VarChar(100)
+  gostaCozinhar        String     @db.VarChar(100)
+  oqCozinha            String     @db.VarChar(100)
+  gostaCrianca         String     @db.VarChar(100)
+  religiao             String     @db.VarChar(100)
+  pernoite             String     @db.VarChar(100)
+  morarEmprego         String     @db.VarChar(100)
+  empregoAtual         String     @db.VarChar(100)
+  gostaAnimal          String     @db.VarChar(100)
+  alergiaAnimal        String     @db.VarChar(100)
+  fuma                 String     @db.VarChar(100)
+  diabetes             String     @db.VarChar(100)
+  hipertensao          String     @db.VarChar(100)
+  depressao            String     @db.VarChar(100)
+  colesterol           String     @db.VarChar(100)
+  problemaCardiaco     String     @db.VarChar(100)
+  problemaColuna       String     @db.VarChar(100)
+  visaoAudicao         String     @db.VarChar(100)
+  alergiaOutros        String     @db.VarChar(100)
+  examesQuais          String     @db.VarChar(100)
+  uniforme             String     @db.VarChar(100)
+  trabalharOutraCidade String     @db.VarChar(100)
+  curriculoId          Int
+  curriculo            Curriculos @relation(fields: [curriculoId], references: [id])
+}
+
+model Partners {
+  id            Int      @id @default(autoincrement())
+  nameEmpresa   String   @db.VarChar(100)
+  cnpj          String   @unique @db.VarChar(45)
+  localizacao   String   @db.VarChar(100)
+  foneComercial String   @db.VarChar(20)
+  celular       String   @db.VarChar(20)
+  requisito     String   @db.VarChar(100)
+  turno         String   @db.VarChar(100)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model TotalCurriculos {
+  total Int
+  @@map("total_curriculos")  // Referência à view no banco de dados
+  @@ignore // Ignorar a necessidade de chave primária
+}
+
+model Agendamento { 
+  id            Int      @id @default(autoincrement())
+  nomeEmpregada String   @db.VarChar(100)
+  turnoHora     String   @db.VarChar(100)
+  cnpj          String   @db.VarChar(100)
+  nomePatraos   String   @db.VarChar(100) 
+  dataInicial   String   @db.VarChar(100)
+  dataFinal     String   @db.VarChar(100)
+  localizacao   String   @db.VarChar(100)
+  receita       String   @db.VarChar(100)
+  despesas      String   @db.VarChar(100)
 }

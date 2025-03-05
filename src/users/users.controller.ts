@@ -38,7 +38,6 @@ export class UsersController {
 
     @Put(':id')
     async updateUsers(@Param('id') id:number, @Body() postData: Users): Promise<Users>{
-        console.log("passou aqui", id, postData);
         return this.userService.updateUser(id, postData)
     }
 }

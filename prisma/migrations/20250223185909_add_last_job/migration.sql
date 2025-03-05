@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "LastJob" ALTER COLUMN "motivoSaida" SET DATA TYPE VARCHAR(100);
