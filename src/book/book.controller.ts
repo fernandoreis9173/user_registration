@@ -11,7 +11,7 @@ export class BookController{
     constructor(private readonly bookService: BookService){}
 
     @Get()
-    // @UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     async getAllBook(@Req() request: Request, @Res() response: Response):Promise<any>{
         try {
                 const result = await this.bookService.getAllBook();
@@ -29,21 +29,25 @@ export class BookController{
     }
 
     @Post()
+    @UseGuards(JwtAuthGuard)
     async postBook(@Body() postData: Book): Promise<Book>{
         return this.bookService.createBook(postData)
     }
 
     @Get(':id')
+    @UseGuards(JwtAuthGuard)
     async getBook(@Param('id') id:number): Promise<Book | null>{
         return this.bookService.getBook(id)
     }
 
     @Delete(':id')
+    @UseGuards(JwtAuthGuard)
     async deleteBook(@Param('id') id:number): Promise<Book>{
         return this.bookService.deleteBook(id)
     }
 
     @Put(':id')
+    @UseGuards(JwtAuthGuard)
     async updateBook(@Param('id') id:number, @Body() postData: Book): Promise<Book>{
         return this.bookService.updateBook(id, postData)
     }

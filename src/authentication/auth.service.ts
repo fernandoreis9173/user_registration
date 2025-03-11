@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { PrismaService } from "src/prisma.service";
 import { UserService } from "src/users/users.service";
@@ -53,4 +53,25 @@ export class AuthService{
             token: this.jwtService.sign({username: user.username})
         }
     }
+
+    async logout(token: string): Promise<{ message: string }> {
+        try {
+          // Salvar o token na blacklist
+          await this.prismaService.revokedToken.create({
+            data: { token },
+          });
+    
+          return { message: 'Successfully logged out!' };
+        } catch (error) {
+          throw new UnauthorizedException('Failed to logout');
+        }
+      }
+    
+      async isTokenRevoked(token: string): Promise<boolean> {
+        const revoked = await this.prismaService.revokedToken.findUnique({
+          where: { token },
+        });
+    
+        return revoked !== null;
+      }
 }

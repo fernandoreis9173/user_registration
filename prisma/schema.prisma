@@ -162,9 +162,17 @@ model Agendamento {
   turnoHora     String   @db.VarChar(100)
   cnpj          String   @db.VarChar(100)
   nomePatraos   String   @db.VarChar(100) 
-  dataInicial   String   @db.VarChar(100)
-  dataFinal     String   @db.VarChar(100)
+  dataInicial   DateTime
+  dataFinal     DateTime
   localizacao   String   @db.VarChar(100)
   receita       String   @db.VarChar(100)
   despesas      String   @db.VarChar(100)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model RevokedToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  createdAt DateTime @default(now())
 }

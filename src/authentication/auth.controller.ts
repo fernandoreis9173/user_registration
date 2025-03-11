@@ -45,4 +45,23 @@ export class AuthController{
                 })
             }
         }
+
+        @Post('/logout')
+  async logout(@Req() request: Request, @Res() response: Response): Promise<any> {
+    console.log("logout", request, response)
+    try {
+      // Remove o token do cookie (se houver)
+      response.clearCookie('token');
+
+      return response.status(200).json({
+        status: 'ok!',
+        message: 'Successfully logged out!',
+      });
+    } catch (err) {
+      return response.status(500).json({
+        status: 'Error!',
+        message: 'Internal Server Error!',
+      });
+    }
+  }
 }

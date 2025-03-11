@@ -8,8 +8,8 @@ export class Agendamento implements Prisma.AgendamentoCreateInput{
     turnoHora: string;    
     cnpj: string;         
     nomePatraos: string;   
-    dataInicial: string;  
-    dataFinal: string;    
+    dataInicial: Date | string
+    dataFinal: Date | string  
     localizacao: string;  
     receita: string;      
     despesas: string;     

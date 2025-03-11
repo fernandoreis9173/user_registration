@@ -10,6 +10,28 @@ export class PartnersService {
     return this.prisma.partners.findMany();
   }
 
+  async getPartnerByCNPJ(cnpj: string): Promise<Partners | null> {
+    try {
+
+        if (!cnpj) {
+            throw new Error("CNPJ não pode ser vazio!");
+        }
+
+        const parceiro = await this.prisma.partners.findUnique({
+            where: { cnpj: cnpj.trim() } // O campo "cnpj" deve ser único no banco
+        });
+
+        if (!parceiro) {
+            console.log(" Nenhum parceiro encontrado para:", cnpj);
+        }
+
+        return parceiro;
+    } catch (error) {
+        console.error("🔥 Erro Prisma:", error);
+        throw new Error("Erro ao buscar parceiro no banco.");
+    }
+}
+
   async getPartners(id: number): Promise<Partners | null> {
     return this.prisma.partners.findUnique({
       where: { id: Number(id) },
@@ -43,4 +65,6 @@ export class PartnersService {
       where: { id: Number(id) },
     });
   }
+
+  
 }

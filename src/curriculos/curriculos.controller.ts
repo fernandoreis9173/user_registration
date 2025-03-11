@@ -11,7 +11,7 @@ export class CurriculosController{
     constructor(private readonly curriculosService: CurriculosService){}
 
     @Get()
-    // @UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     async getAllCurriculos(@Req() request: Request, @Res() response: Response):Promise<any>{
         try {
                 const result = await this.curriculosService.getAllCurriculos();
@@ -29,27 +29,32 @@ export class CurriculosController{
     }
 
     @Get('count')
+    @UseGuards(JwtAuthGuard)
     async getCount(): Promise<{ total: number }> {
     const total = await this.curriculosService.countCurriculos();
     return { total };
 }
 
     @Post()
+    @UseGuards(JwtAuthGuard)
     async postCurriculos(@Body() postData: Curriculos): Promise<Curriculos>{
         return this.curriculosService.createCurriculos(postData)
     }
 
     @Get(':id')
+    @UseGuards(JwtAuthGuard)
     async getCurriculos(@Param('id') id:number): Promise<Curriculos | null>{
         return this.curriculosService.getCurriculos(id)
     }
 
     @Delete(':id')
+    @UseGuards(JwtAuthGuard)
     async deleteCurriculos(@Param('id') id:number): Promise<Curriculos>{
         return this.curriculosService.deleteCurriculos(id)
     }
 
     @Put(':id')
+    @UseGuards(JwtAuthGuard)
     async updateCurriculos(@Param('id') id:number, @Body() postData: Curriculos): Promise<Curriculos>{
         return this.curriculosService.updateCurriculos(id, postData)
     }
